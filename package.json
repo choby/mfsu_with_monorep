@@ -1,0 +1,40 @@
+{
+  "name": "management_system",
+  "description": "秉理后台管理系统",
+  "private": true,
+  "scripts": {
+    "setup": "yarn bootstrap && yarn libraries:build",
+    "bootstrap": "lerna bootstrap",
+    "libraries:build": "lerna run --include-dependencies --stream --scope @ibingli/* build",
+    "version:fix": "syncpack fix-mismatches",
+    "version:check": "syncpack list-mismatches",
+    "clean": "lerna clean"
+  },
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "libraries/*"
+    ]
+  },
+  "devDependencies": {
+    "husky": "^6.0.0",
+    "lerna": "^4.0.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.0",
+    "syncpack": "^5.7.11"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,css,md,json}": [
+      "prettier --ignore-path .eslintignore --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "file-saver": "^2.0.5"
+  }
+}
